@@ -1,46 +1,50 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
 
-const App = () => {
-  const [personState, setPerson] = useState(
-    {
-        persons: [{
-            name: 'Max',
-            age: 28
-          },
-          {
-            name: 'Manu',
-            age: 29
-          }
-        ]
+class App extends Component {
+  state = {
+    persons: [
+      {
+        name: 'Max',
+        age: 28
+      },
+      {
+        name: 'Manu',
+        age: 29
       }
-  );
+    ],
+    otherState: 'This is other state'
+  }
 
-  const [otherState, setOtherState] = useState('This is another state')
+  switchNameHandler = (newName) =>{
+    console.log(this.state);
+    // console.log('Yes was clicked!');
+    this.setState({
+      persons: [{
+          name: 'Bhavya',
+          age: 24
+        },
+        {
+          name: newName,
+          age: 27
+        }
+      ]
+    });
+  }
 
-  const switchNameHandler = (newName) => {
-        setPerson({
-          persons: [{
-              name: 'Bhavya',
-              age: 24
-            },
-            {
-              name: newName,
-              age: 27
-            }
-          ]
-        });
-      };
 
-  return(
+  render() {
+    return (
       <div className="App">
         <h1>Hi, I am a React App</h1>
-        <button onClick={switchNameHandler.bind(this, 'Arun!')}>Switch name</button>
-        <Person name={personState.persons[0].name} age={personState.persons[0].age}/>
-        <Person name={personState.persons[1].name} age={personState.persons[1].age}><p>My Hobbies: Cooking</p></ Person>
+        <button onClick={() => this.switchNameHandler('Arun!!')}>Switch name</button>
+        <Person name={this.state.persons[0].name} age={this.state.persons[0].age}/>
+        <Person name={this.state.persons[1].name} age={this.state.persons[1].age}><p>My Hobbies: Cooking</p></ Person>
+        <Person name={this.state.persons[0].name} age={this.state.persons[0].age} click={this.switchNameHandler.bind(this,'Aradhya!!')}/>
       </div>
     );
-};
+  }
+}
 
 export default App;
