@@ -19,14 +19,14 @@ const App = () => {
 
   const [otherState, setOtherState] = useState('This is another state')
 
-  const switchNameHandler = () => {
+  const switchNameHandler = (newName) => {
         setPerson({
           persons: [{
               name: 'Bhavya',
               age: 24
             },
             {
-              name: 'Aradhya',
+              name: newName,
               age: 27
             }
           ]
@@ -36,7 +36,7 @@ const App = () => {
   return(
       <div className="App">
         <h1>Hi, I am a React App</h1>
-        <button onClick={switchNameHandler}>Switch name</button>
+        <button onClick={switchNameHandler.bind(this, 'Arun!')}>Switch name</button>
         <Person name={personState.persons[0].name} age={personState.persons[0].age}/>
         <Person name={personState.persons[1].name} age={personState.persons[1].age}><p>My Hobbies: Cooking</p></ Person>
       </div>
