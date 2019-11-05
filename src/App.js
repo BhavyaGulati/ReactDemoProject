@@ -55,8 +55,8 @@ class App extends Component {
         <div>
             {this.state.persons.map((person,index) => {
               return <Person 
-                index={index}
-                click={this.deletePersonHandler}
+                // index={index}
+                click={()=>this.deletePersonHandler(index)}
                 change={(event)=>this.changeNameHandler(event, person.id)}
                 name={person.name} 
                 age={person.age}
@@ -71,7 +71,7 @@ class App extends Component {
         <h1>Hi, I am a React App</h1>
         <button 
           style = {style}
-          onClick={this.togglePersonHandler}>Switch name</button>
+          onClick={()=>this.togglePersonHandler()}>Switch name</button>
           {person}
       </div>
     );
