@@ -13,14 +13,10 @@ class App extends Component {
     showPersons: false
   }
 
-  switchNameHandler = (newName) => {
-    this.setState({
-      persons: [
-        {name: 'Bhavya', age: 24},
-        {name: newName, age: 27},
-        {name: 'Shefali', age: 42}
-      ]
-    });
+  deletePersonHandler = (index) => {
+    const persons = this.state.persons.slice();
+    persons.splice(index, 1);
+    this.setState({persons: persons})
   }
 
   changeNameHandler = (event) => {
@@ -46,22 +42,20 @@ class App extends Component {
       padding: '8px',
       cursor: 'pointer'
     }
+
     let person = null;
+
     if (this.state.showPersons) {
         person = (
-          <div>
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age}/>
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age}
-            changed={this.changeNameHandler}><p>My Hobbies: Cooking</p></ Person>
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age} 
-            click={this.switchNameHandler.bind(this,'Aradhya!!')}/>
-          </div>
+        <div>
+            {this.state.persons.map((person,index) => {
+              return <Person 
+                click={() => this.deletePersonHandler(index)}
+                change={() => this.changeNameHandler()}
+                name={person.name} 
+                age={person.age}/>
+            })}
+        </div>
         )
       }
 
@@ -70,7 +64,7 @@ class App extends Component {
         <h1>Hi, I am a React App</h1>
         <button 
           style = {style}
-          onClick={this.togglePersonHandler}>Switch name</button>
+          onClick={() => this.togglePersonHandler()}>Switch name</button>
           {person}
       </div>
     );
