@@ -11,17 +11,10 @@ class App extends Component {
       {name: 'Aradhya', age: 27},
       {name: 'Shefali', age: 42}
     ],
-    otherState: 'This is other state',
-    userName: [
-      {name: 'One Name'},
-      {name: 'Two Name'},
-      {name: 'Three Name'}
-    ]
+    otherState: 'This is other state'
   }
 
   switchNameHandler = (newName) =>{
-    console.log(this.state);
-    // console.log('Yes was clicked!');
     this.setState({
       persons: [
         {name: 'Bhavya', age: 24},
@@ -40,17 +33,6 @@ class App extends Component {
       ]
     });
   }
-
-  changeUserNameHandler = (event) => {
-    this.setState({
-      userName: [
-        {name: event.target.value},
-        {name: 'Two Name'},
-        {name: 'Three Name'}
-      ]
-    });
-  }
-
 
   render() {
     const style = {
@@ -78,12 +60,6 @@ class App extends Component {
           name={this.state.persons[2].name} 
           age={this.state.persons[2].age} 
           click={this.switchNameHandler.bind(this,'Aradhya!!')}/>
-
-        <br/>
-        <UserInput usrName={this.state.userName[0].name} change={this.changeUserNameHandler}/>
-        <UserOutput usrName={this.state.userName[0].name} />
-        <UserOutput usrName={this.state.userName[1].name}/>
-        <UserOutput usrName={this.state.userName[2].name}/>
       </div>
     );
   }
