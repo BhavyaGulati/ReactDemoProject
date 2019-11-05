@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
-import UserInput from './UserInput/UserInput'
-import UserOutput from './UserOutput/UserOutput'
 
 class App extends Component {
   state = {
@@ -11,10 +9,11 @@ class App extends Component {
       {name: 'Aradhya', age: 27},
       {name: 'Shefali', age: 42}
     ],
-    otherState: 'This is other state'
+    otherState: 'This is other state',
+    showPersons: false
   }
 
-  switchNameHandler = (newName) =>{
+  switchNameHandler = (newName) => {
     this.setState({
       persons: [
         {name: 'Bhavya', age: 24},
@@ -34,6 +33,11 @@ class App extends Component {
     });
   }
 
+  togglePersonHandler = () => {
+    const doesShow = this.state.showPersons
+    this.setState({showPersons: !doesShow});
+  }
+
   render() {
     const style = {
       backgroundColor: 'white',
@@ -48,18 +52,23 @@ class App extends Component {
         <h1>Hi, I am a React App</h1>
         <button 
           style = {style}
-          onClick={() => this.switchNameHandler('Arun!!')}>Switch name</button>
-        <Person 
-          name={this.state.persons[0].name} 
-          age={this.state.persons[0].age}/>
-        <Person 
-          name={this.state.persons[1].name} 
-          age={this.state.persons[1].age}
-          changed={this.changeNameHandler}><p>My Hobbies: Cooking</p></ Person>
-        <Person 
-          name={this.state.persons[2].name} 
-          age={this.state.persons[2].age} 
-          click={this.switchNameHandler.bind(this,'Aradhya!!')}/>
+          onClick={this.togglePersonHandler}>Switch name</button>
+        {
+          this.state.showPersons===true ? 
+            <div>
+              <Person 
+                name={this.state.persons[0].name} 
+                age={this.state.persons[0].age}/>
+              <Person 
+                name={this.state.persons[1].name} 
+                age={this.state.persons[1].age}
+                changed={this.changeNameHandler}><p>My Hobbies: Cooking</p></ Person>
+              <Person 
+                name={this.state.persons[2].name} 
+                age={this.state.persons[2].age} 
+                click={this.switchNameHandler.bind(this,'Aradhya!!')}/>
+              </div> : null 
+        }
       </div>
     );
   }
